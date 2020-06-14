@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+
+      .clock{
+        position: relative;
+        width: 400px;
+        height: 400px;
+        background-color: orange;
+        border-radius: 50%;
+        box-sizing: border-box;
+      }
+ 
+    .wrapper{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+
+    .round{
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 50%;
+        background-color: green;
+    }
+
+    .round:first-child{
+        top:15px;
+    }
+    
+    .round:last-child{
+        bottom: 15px;
+    }
+
+    .number{
+        line-height: 2.5;
+        text-align: center;
+    }
+    
+    .transform-1{
+        transform: rotate(30deg);
+    }
+    .transform-1 .number{
+        transform: rotate(-30deg);
+    }
+
+    .transform-2{
+        transform: rotate(60deg);
+    }
+    .transform-2 .number{
+        transform: rotate(-60deg);
+    }
+
+    .transform-3{
+        transform: rotate(90deg);
+    }
+
+    .transform-3 .number{
+        transform: rotate(-90deg);
+    }
+
+    .transform-4{
+        transform: rotate(120deg);
+    }
+
+    .transform-4 .number{
+        transform: rotate(-120deg);
+    }
+
+    .transform-5{
+        transform: rotate(150deg);
+    }
+
+    .transform-5 .number{
+        transform: rotate(-150deg);
+    }
+
+    .hh, .mm, .ss{
+        position: absolute;
+        background: black;
+        transform-origin: bottom center;
+    }
+
+    .hh
+    {
+        width: 10px;
+        height: 140px;
+        left: 195px;
+        top: 60px;
+        z-index: 1;
+    }
+
+    .mm{
+        width: 6px;
+        height: 160px;
+        left: 197px;
+        top: 40px;
+        z-index: 2;
+    }
+
+    .ss{
+        width: 2px;
+        height: 180px;
+        background: red;
+        left: 199px;
+        top: 20px;
+        z-index: 3;
+    }
+
+    .center-circle{
+        position: absolute;
+        background: black;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        top: 191px;
+        left: 191px;
+        z-index: 1000;
+    }
+
+    .now{
+        position: absolute;
+        left: 143px;
+        font-size: 32px;
+        font-weight: 600;
+        top: 95px;
+    }
+
+
+    </style>
+</head>
+ 
+<body>
+   <div class="clock" id="clock">
+       <div class="wrapper">
+           <div class="round">
+                <div class="number">12</div>
+           </div>
+           <div class="round">
+               <div class="number">6</div>
+           </div>
+       </div>
+       <div class="wrapper transform-1">
+           <div class="round">
+                <div class="number">1</div>
+           </div>
+           <div class="round">
+               <div class="number">7</div>
+           </div>
+       </div>
+       <div class="wrapper transform-2">
+           <div class="round">
+                <div class="number">2</div>
+           </div>
+           <div class="round">
+               <div class="number">8</div>
+           </div>
+       </div>
+       <div class="wrapper transform-3">
+           <div class="round">
+                <div class="number">3</div>
+           </div>
+           <div class="round">
+               <div class="number">9</div>
+           </div>
+       </div>
+       <div class="wrapper transform-4">
+           <div class="round">
+                <div class="number">4</div>
+           </div>
+           <div class="round">
+               <div class="number">10</div>
+           </div>
+       </div>
+       <div class="wrapper transform-5">
+           <div class="round">
+                <div class="number">5</div>
+           </div>
+           <div class="round">
+               <div class="number">11</div>
+           </div>
+       </div>
+       <div>
+        <div class="hh" id="hh"></div>
+        <div class="mm" id="mm"></div>
+        <div class="ss" id="ss"></div>
+        <div class="center-circle"></div>
+
+</div>
+   </div>
+</body>
+ 
+</html>
+
+
+<script>
+
+    let clock=document.getElementById('clock');
+    let time = document.createElement('div');
+    time.classList.add('now');
+    clock.appendChild(time);
+  
+    function ifNotNull(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
+
+    setInterval(function(){
+        var seconds = new Date().getSeconds();
+        var secAngle = seconds * 6;
+        var secRotate = "rotate(" + secAngle + "deg)";
+        document.getElementById('ss').style.transform = secRotate;
+    }, 1000);
+
+    setInterval(function(){
+        var mins = new Date().getMinutes();
+        var minAngle = mins * 6;
+        var minRotate = "rotate(" + minAngle + "deg)";
+        document.getElementById('mm').style.transform = minRotate;
+    }, 1000);
+
+    setInterval(function(){
+       var hours = new Date().getHours();
+       var mins = new Date().getMinutes();
+       var hourAngle = hours * 30 + (mins / 2);
+       var hourRotate = "rotate(" + hourAngle + "deg)";
+       document.getElementById('hh').style.transform = hourRotate;
+    }, 1000);
+
+    setInterval(function() {
+        let hours = ifNotNull(new Date().getHours());
+        let min = ifNotNull(new Date().getMinutes());
+        let sec = ifNotNull(new Date().getSeconds());
+        let timeStr = hours + ':' + min + ':' + sec;
+        time.innerHTML = `<div>${timeStr}</div>`;
+    }, 1000);
+
+
+</script>

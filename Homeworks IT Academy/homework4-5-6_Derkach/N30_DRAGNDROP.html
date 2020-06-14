@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<style>
+    img {
+        z-index: 10;
+    }
+
+ </style>
+	<div id="draggible">
+		<img src="images/1.svg" alt="">
+		<img src="images/2.svg" alt="">
+		<img src="images/3.svg" alt="">
+		<img src="images/4.svg" alt="">
+		<img src="images/5.svg" alt="">
+		<img src="images/6.svg" alt="">
+		<img src="images/7.svg" alt="">
+		<img src="images/8.svg" alt="">
+		<img src="images/9.svg" alt="">
+        <img src="images/10.svg" alt="">
+        <img src="images/11.svg" alt="">
+	</div>
+</body>
+</html>
+<script>
+
+    let elem = document.getElementById('draggible');
+
+    let imgColl = elem.querySelectorAll("img");
+
+    for (let img of imgColl) {
+        img.addEventListener('mousedown', mouseDown, false);
+    }
+ 
+    let drag = false;
+    let draggedImg;
+    let coords;
+    let touchPointX;
+    let touchPointY;
+
+    elem.ondragstart = function() {
+        return false;
+    };
+ 
+    function mouseDown(e) {
+        draggedImg = e.target;
+        if (draggedImg.tagName !== "IMG") {
+          return false;
+        }
+        
+        drag = true;
+        coords = getCoords(e.target);
+        touchPointX = e.pageX - coords.left;
+        touchPointY = e.pageY - coords.top;
+        draggedImg.style.position = 'absolute';
+        draggedImg.style.zIndex = 20;
+        draggedImg.style.transform = 'scale(1.2)';
+        draggedImg.style.cursor = "pointer";
+        draggedImg.style.left = e.pageX - touchPointX + 'px';
+        draggedImg.style.top = e.pageY - touchPointY + 'px';
+     
+    }
+
+    document.body.addEventListener('mousemove', mouseMove, false);
+    document.body.addEventListener('mouseup', mouseUp, false);
+ 
+    function mouseMove(e) {
+        if (drag) {
+            draggedImg.style.left = e.pageX - touchPointX + 'px';
+            draggedImg.style.top = e.pageY - touchPointY + 'px';
+        }
+        
+    }
+ 
+    function mouseUp(e) {
+        if (e.target !== draggedImg) {
+            return false;
+        }
+            drag = false;
+            draggedImg.style.transform = 'scale(1)';
+            draggedImg.style.cursor = "default";
+            draggedImg.style.zIndex = 10;
+            draggedImg = null;
+    }
+ 
+    function getCoords(elem) {
+        var box = elem.getBoundingClientRect();
+        return {
+            top: box.top + pageYOffset,
+            left: box.left + pageXOffset
+        };
+    }
+
+</script> 

@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Document</title>
+
+        <script>
+            
+        function vowels() {
+            var vowelsstring = ["а", "е", "ё", "и", "о" ,'у', "ы", "э", "ю", "я", "А","Е", "Ё", "И", "О", "У", "Ы", "Э", "Ю", "Я"];
+            var str = prompt("Введите строку:");
+            var vowCount = [...str].reduce((a, b) => a + vowelsstring.includes(b), 0);
+  			return vowCount ? vowCount : "Гласных букв не найдено!";
+        }
+        
+        console.log(vowels());
+
+        </script>
+</head>
+<body>
+
+</body>
+</html>

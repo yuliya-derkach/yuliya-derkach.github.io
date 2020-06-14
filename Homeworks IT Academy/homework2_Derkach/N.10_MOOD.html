@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script>
+	    
+        function randomDiap(n,m) {
+            return Math.floor(Math.random()*(m-n+1))+n;
+        }
+
+        function mood(colorsCount) {
+            var colors=[ '', 'красный', 'оранжевый', 'жёлтый', 'зелёный', 'голубой', 'синий', 'фиолетовый' ];
+            var hash={};
+            var i=0;
+
+            console.log( 'цветов: ' + colorsCount );
+
+            while(i<colorsCount){
+                var n = randomDiap(1,7);
+                var colorName=colors[n];
+                if (!(colorName in hash)){
+                    hash[colorName] = true;
+                    i++;
+                    console.log(colorName);
+                }
+            }
+        }
+
+        mood(3);
+
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
